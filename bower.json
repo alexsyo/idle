@@ -1,0 +1,23 @@
+{
+  "name": "idle",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Alessandro"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/alexsyo/idle",
+  "moduleType": [
+    "es6"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation-apps": "~1.2.0"
+  }
+}
