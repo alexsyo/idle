@@ -22,7 +22,7 @@ class Canvas extends React.Component {
                     tile.img, 
                     tile.pos[map[i][e]].x, tile.pos[map[i][e]].y,     // src position
                     tile.size, tile.size,                             // src size
-                    e*tile.size, i*tile.size,                         // dst position
+                    e * tile.size, i * tile.size,                     // dst position
                     tile.size, tile.size                              // dst size
                 );
                     
