@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import Canvas from './Map/Canvas.jsx';
 
 class App extends React.Component{
 
@@ -14,7 +15,7 @@ class App extends React.Component{
 
         return(
 
-            <div>test</div>
+            <Canvas />
 
         );
 

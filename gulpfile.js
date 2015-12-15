@@ -36,6 +36,11 @@ gulp.task('jsx', () => {
         .pipe(connect.reload());
 });
 
+gulp.task('img', () => {
+    gulp.src('./img/tileSheet.png')
+        .pipe(gulp.dest('./dist/www/img/'));
+});
+
 gulp.task('config', () => {
     gulp.src('./app/config.xml')
         .pipe(gulp.dest('./dist/'));
@@ -45,6 +50,7 @@ gulp.task('watch', () => {
     gulp.watch('./app/*.html', ['html']);
     gulp.watch('./app/css/*', ['css']);
     gulp.watch('./app/jsx/**/*.jsx', ['jsx']);
+    gulp.watch('./img/tiles', ['img']);
     gulp.watch('./app/config.xml', ['config']);
 });
 
@@ -55,4 +61,4 @@ gulp.task('connect', () => {
     });
 });
 
-gulp.task('default', ['html', 'css', 'jsx', 'config', 'watch', 'connect']);
+gulp.task('default', ['html', 'css', 'jsx', 'img', 'config', 'watch', 'connect']);
