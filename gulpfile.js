@@ -50,7 +50,7 @@ gulp.task('watch', () => {
     gulp.watch('./app/*.html', ['html']);
     gulp.watch('./app/css/*', ['css']);
     gulp.watch('./app/jsx/**/*.jsx', ['jsx']);
-    gulp.watch('./img/tiles', ['img']);
+    gulp.watch('./img/tileSheet.png', ['img']);
     gulp.watch('./app/config.xml', ['config']);
 });
 

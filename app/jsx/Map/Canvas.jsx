@@ -1,34 +1,30 @@
 'use strict';
 
 import React from 'react';
+import Draw from './Draw.jsx';
 import map from './map.jsx';
-import tile from './tile.jsx';
 
 class Canvas extends React.Component {
 
     constructor(props) {
 
         super(props);
+        this.mouseActive = false;
 
     }
 
     componentDidMount() {
 
-        for(let i = 0; i < map.length; i++) {
+        this.draw = new Draw(this.canvas, this.context);
+        this.draw.map(map.start, this.context);
 
-            for(let e = 0; e < map[i].length; e++) {
-
-                this.context.drawImage(
-                    tile.img, 
-                    tile.pos[map[i][e]].x, tile.pos[map[i][e]].y,     // src position
-                    tile.size, tile.size,                             // src size
-                    e * tile.size, i * tile.size,                     // dst position
-                    tile.size, tile.size                              // dst size
-                );
-                    
-            }
-
-        }
+        this.canvas.addEventListener('mouseup', () => this.mouseActive = false);
+        this.canvas.addEventListener('mouseleave', () => this.mouseActive = false);
+        this.canvas.addEventListener('mousemove', (event) => this.draw.tile(event, 1, this.mouseActive));
+        this.canvas.addEventListener('mousedown', (event) => {
+            this.mouseActive = true;
+            this.draw.tile(event, 1, this.mouseActive);
+        });
 
     }
 
@@ -37,7 +33,21 @@ class Canvas extends React.Component {
         return(
 
             <div>
-                <canvas ref={(c) => this.context = c.getContext('2d')} height="300" width="400"></canvas>
+
+                <canvas ref={
+
+                            (c) => {
+
+                                this.canvas = c;
+                                this.context = c.getContext('2d');
+
+                            }
+
+                        }
+                        height="300"
+                        width="400">
+                </canvas>
+
             </div>
 
         );
