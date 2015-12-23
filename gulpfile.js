@@ -17,7 +17,7 @@ gulp.task('html', () => {
 });
 
 gulp.task('css', () => {
-    sass('./app/css/main.scss', {style: 'compressed'})
+    sass('./app/css/index.scss', {style: 'compressed'})
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false

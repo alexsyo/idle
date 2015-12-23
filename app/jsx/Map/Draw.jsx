@@ -1,6 +1,6 @@
 'use strict';
 
-import tile from './tile.jsx';
+import Tile from './Tile.jsx';
 
 class Draw {
 
@@ -8,24 +8,29 @@ class Draw {
 
         this.canvas = canvas;
         this.context = context;
+        this.tile = new Tile();
 
     }
 
     map(map) {
 
-        for(let i = 0; i < map.length; i++) {
+        this.tile.img.onload = () => {
 
-            for(let e = 0; e < map[i].length; e++) {
+            for(let i = 0; i < map.length; i++) {
 
-                this._drawImage(e, i, map[i][e]);
+                for(let e = 0; e < map[i].length; e++) {
+
+                    this._drawImage(e, i, map[i][e]);
+    
+                }
 
             }
 
-        }
+        };
 
     }
 
-    tile(event, type, isActive) {
+    singleTile(event, type, isActive) {
 
         if(isActive) {
 
@@ -42,11 +47,11 @@ class Draw {
     _drawImage(x, y, type) {
 
         this.context.drawImage(
-            tile.img,
-            tile.type[type].x, tile.type[type].y,   // src position
-            tile.size, tile.size,                   // src size
-            x * tile.size, y * tile.size,           // dst position
-            tile.size, tile.size                    // dst size
+            this.tile.img,
+            this.tile.type[type].x, this.tile.type[type].y,   // src position
+            this.tile.size, this.tile.size,                   // src size
+            x * this.tile.size, y * this.tile.size,           // dst position
+            this.tile.size, this.tile.size                    // dst size
         );
 
     }
