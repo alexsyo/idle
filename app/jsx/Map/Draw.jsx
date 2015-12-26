@@ -30,13 +30,16 @@ class Draw {
 
     }
 
-    singleTile(event, type, isActive) {
+    singleTile(type, isActive) {
 
         if(isActive) {
 
+            window.event.preventDefault();
+
+            let touch = window.event.changedTouches[0];
             let rect = this.canvas.getBoundingClientRect();
-            let x = Math.floor((event.clientX - rect.left) / 32);
-            let y = Math.floor((event.clientY - rect.top) / 32);
+            let x = Math.floor((touch.clientX - rect.left) / this.tile.size);
+            let y = Math.floor((touch.clientY - rect.top) / this.tile.size);
 
             this._drawImage(x, y, type);
             

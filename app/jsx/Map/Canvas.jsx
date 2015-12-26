@@ -16,43 +16,34 @@ class Canvas extends React.Component {
 
     componentDidMount() {
 
-        this.canvas = document.getElementById('mainBoard');
-        this.context = this.canvas.getContext('2d');
         this.draw = new Draw(this.canvas, this.context);
+
+
+        this.drawTileStartHandler = () => {
+
+            this.mouseActive = true;
+            this.draw.singleTile(1, this.mouseActive);
+
+        };
+
+        this.drawTileMoveHandler = () => {
+
+            this.draw.singleTile(1, this.mouseActive);
+
+        };
+
+        this.drawTileEndHandler = () => {
+
+            this.mouseActive = false;
+
+        };
+
 
         this.draw.map(this.map.start);
 
-        // this.addListeners(['mouseleave', 'mouseup', 'touchend'], () => this.mouseActive = false);
-        // this.addListeners(['mousemove', 'touchmove'], (event) => this.draw.singleTile(event, 1, this.mouseActive));
-        // this.addListeners(this.canvas, ['click'], (event) => {
-        //     this.mouseActive = true;
-        //     this.draw.singleTile(event, 1, this.mouseActive);
-        // });
-
-        this.canvas.addEventListener('click', (event) => {
-            this.mouseActive = true;
-            this.draw.singleTile(event, 1, this.mouseActive);
-        });
-
-        // this.button.addEventListener('mousedown', () => {this.button.style.backgroundColor = 'brown'});
-
-        // document.getElementById('ciao').addEventListener('touchstart', () => {document.getElementById('ciao').style.backgroundColor = 'brown'}, false);
-        // document.getElementById('ciao').addEventListener('touchmove', () => {document.getElementById('ciao').style.backgroundColor = 'brown'}, false);
-        // document.getElementById('ciao').addEventListener('touchend', () => {document.getElementById('ciao').style.backgroundColor = 'brown'}, false);     
-        // document.getElementById('ciao').addEventListener('mousedown', () => {document.getElementById('ciao').style.backgroundColor = 'brown'}, false);
-        // document.getElementById('ciao').addEventListener('mousemove', () => {document.getElementById('ciao').style.backgroundColor = 'brown'}, false);
-        // document.getElementById('ciao').addEventListener('mouseup', () => {document.getElementById('ciao').style.backgroundColor = 'brown'}, false);
-        document.getElementById('ciao').addEventListener('click', () => {document.getElementById('ciao').style.backgroundColor = 'brown'}, false);
-
-    }
-
-    addListeners(obj, events, callback) {
-
-        for(let evt of events) {
-
-            obj.addEventListener(evt, callback);
-
-        }
+        this.canvas.addEventListener('touchstart', this.drawTileStartHandler, false);
+        this.canvas.addEventListener('touchmove', this.drawTileMoveHandler, false);
+        this.canvas.addEventListener('touchend', this.drawTileEndHandler, false);
 
     }
 
@@ -62,8 +53,19 @@ class Canvas extends React.Component {
 
             <div>
 
-                <canvas id="mainBoard" height="300" width="400"></canvas>
-                <button id="ciao">ciao</button>
+                <canvas ref={
+
+                            (c) => {
+
+                                this.canvas = c;
+                                this.context = c.getContext('2d');
+
+                            }
+
+                        }
+                        height="300"
+                        width="400">
+                </canvas>
 
             </div>
 

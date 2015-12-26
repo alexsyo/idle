@@ -1,1 +1,5 @@
 @import '../../bower_components/foundation-apps/scss/foundation';
+
+*:focus {
+    outline: none;
+}
