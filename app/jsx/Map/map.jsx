@@ -5,16 +5,16 @@ class Map {
     constructor() {
 
         this.start = [
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]],
+            [ ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0], ['ground', 0]]
         ];
         
     }

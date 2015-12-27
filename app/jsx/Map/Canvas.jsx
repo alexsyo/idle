@@ -22,13 +22,13 @@ class Canvas extends React.Component {
         this.drawTileStartHandler = () => {
 
             this.mouseActive = true;
-            this.draw.tile(4, this.mouseActive);
+            this.draw.tile('grass', this.mouseActive);
 
         };
 
         this.drawTileMoveHandler = () => {
 
-            this.draw.tile(4, this.mouseActive);
+            this.draw.tile('grass', this.mouseActive);
 
         };
 

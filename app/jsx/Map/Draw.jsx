@@ -21,7 +21,12 @@ class Draw {
 
                 for(let x = 0; x < this.mapObj[y].length; x++) {
 
-                    let tile = {x, y, type: this.mapObj[y][x]};
+                    let tile = {
+                        x,
+                        y,
+                        type: this.mapObj[y][x][0],
+                        shape: this.mapObj[y][x][1]
+                    };
 
                     this._drawImage(tile);
     
@@ -43,17 +48,18 @@ class Draw {
             let rect = this.canvas.getBoundingClientRect();
             let x = Math.floor((touch.clientX - rect.left) / this.tileObj.size);
             let y = Math.floor((touch.clientY - rect.top) / this.tileObj.size);
-
-            let tile = {x, y, type};
             let adjacents = this._findAdjacents(x, y);
 
-            this._updateMap(tile);
-            this._drawAdjacents(adjacents, type);
-
-            tile.type = this._setShape(adjacents, type);
+            let tile = {
+                x,
+                y,
+                type,
+                shape: this._setShape(adjacents, type)
+            };
 
             this._drawImage(tile);
             this._updateMap(tile);
+            this._drawAdjacents(adjacents, type);
             
         }
 
@@ -62,11 +68,12 @@ class Draw {
     _drawImage(tile) {
 
         this.context.drawImage(
-            this.tileObj.img,
-            this.tileObj.type[tile.type].x, this.tileObj.type[tile.type].y,     // src position
-            this.tileObj.size, this.tileObj.size,                               // src size
-            tile.x * this.tileObj.size, tile.y * this.tileObj.size,             // dst position
-            this.tileObj.size, this.tileObj.size                                // dst size
+            this.tileObj.img,                                           // img instance
+            this.tileObj.type[tile.type][tile.shape].x, 
+            this.tileObj.type[tile.type][tile.shape].y,                 // src position
+            this.tileObj.size, this.tileObj.size,                       // src size
+            tile.x * this.tileObj.size, tile.y * this.tileObj.size,     // dst position
+            this.tileObj.size, this.tileObj.size                        // dst size
         );
 
     }
@@ -80,9 +87,9 @@ class Draw {
                 if(this._checkTile(adjacents[i], type)) {
 
                     let adjacentOfAdjacent = this._findAdjacents(adjacents[i].x, adjacents[i].y);
-                    let adjacentShape = this._setShape(adjacentOfAdjacent, type);
 
-                    adjacents[i].type = adjacentShape;
+                    adjacents[i].type = type;
+                    adjacents[i].shape = this._setShape(adjacentOfAdjacent, type);
 
                     this._drawImage(adjacents[i]);
                     this._updateMap(adjacents[i]);
@@ -123,22 +130,22 @@ class Draw {
 
         let shape;
 
-        if(!up && !right && !down && !left) shape = type;
-        if(!up &&  right && !down && !left) shape = type + 1;
-        if(!up &&  right && !down &&  left) shape = type + 2;
-        if(!up && !right && !down &&  left) shape = type + 3;
-        if(!up && !right &&  down && !left) shape = type + 4;
-        if(!up &&  right &&  down && !left) shape = type + 5;
-        if(!up &&  right &&  down &&  left) shape = type + 6;
-        if(!up && !right &&  down &&  left) shape = type + 7;
-        if( up && !right &&  down && !left) shape = type + 8;
-        if( up &&  right &&  down && !left) shape = type + 9;
-        if( up &&  right &&  down &&  left) shape = type + 10;
-        if( up && !right &&  down &&  left) shape = type + 11;
-        if( up && !right && !down && !left) shape = type + 12;
-        if( up &&  right && !down && !left) shape = type + 13;
-        if( up &&  right && !down &&  left) shape = type + 14;
-        if( up && !right && !down &&  left) shape = type + 15;
+        if(!up && !right && !down && !left) shape = 0;
+        if(!up &&  right && !down && !left) shape = 1;
+        if(!up &&  right && !down &&  left) shape = 2;
+        if(!up && !right && !down &&  left) shape = 3;
+        if(!up && !right &&  down && !left) shape = 4;
+        if(!up &&  right &&  down && !left) shape = 5;
+        if(!up &&  right &&  down &&  left) shape = 6;
+        if(!up && !right &&  down &&  left) shape = 7;
+        if( up && !right &&  down && !left) shape = 8;
+        if( up &&  right &&  down && !left) shape = 9;
+        if( up &&  right &&  down &&  left) shape = 10;
+        if( up && !right &&  down &&  left) shape = 11;
+        if( up && !right && !down && !left) shape = 12;
+        if( up &&  right && !down && !left) shape = 13;
+        if( up &&  right && !down &&  left) shape = 14;
+        if( up && !right && !down &&  left) shape = 15;
 
         return shape;
 
@@ -146,7 +153,7 @@ class Draw {
 
     _checkTile(tile, type) {
 
-        let isFull = this.mapObj[tile.y][tile.x] >= type && this.mapObj[tile.y][tile.x] <= type + 15;
+        let isFull = this.mapObj[tile.y][tile.x][0] === type;
 
         return isFull;
 
@@ -154,7 +161,7 @@ class Draw {
 
     _updateMap(tile) {
 
-        this.mapObj[tile.y][tile.x] = tile.type;
+        this.mapObj[tile.y][tile.x] = [tile.type, tile.shape];
 
     }
 
