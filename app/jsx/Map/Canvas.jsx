@@ -16,19 +16,19 @@ class Canvas extends React.Component {
 
     componentDidMount() {
 
-        this.draw = new Draw(this.canvas, this.context);
+        this.draw = new Draw(this.canvas, this.context, this.map.start);
 
 
         this.drawTileStartHandler = () => {
 
             this.mouseActive = true;
-            this.draw.singleTile(1, this.mouseActive);
+            this.draw.tile(4, this.mouseActive);
 
         };
 
         this.drawTileMoveHandler = () => {
 
-            this.draw.singleTile(1, this.mouseActive);
+            this.draw.tile(4, this.mouseActive);
 
         };
 
@@ -39,7 +39,7 @@ class Canvas extends React.Component {
         };
 
 
-        this.draw.map(this.map.start);
+        this.draw.map();
 
         this.canvas.addEventListener('touchstart', this.drawTileStartHandler, false);
         this.canvas.addEventListener('touchmove', this.drawTileMoveHandler, false);
