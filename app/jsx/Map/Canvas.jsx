@@ -16,19 +16,19 @@ class Canvas extends React.Component {
 
     componentDidMount() {
 
-        this.draw = new Draw(this.canvas, this.context, this.map.start);
+        this.draw = new Draw(this.canvas, this.map.start);
 
 
         this.drawTileStartHandler = () => {
 
             this.mouseActive = true;
-            this.draw.tile('grass', this.mouseActive);
+            this.draw.tile(this.props.tileType, this.mouseActive);
 
         };
 
         this.drawTileMoveHandler = () => {
 
-            this.draw.tile('grass', this.mouseActive);
+            this.draw.tile(this.props.tileType, this.mouseActive);
 
         };
 
@@ -53,19 +53,7 @@ class Canvas extends React.Component {
 
             <div>
 
-                <canvas ref={
-
-                            (c) => {
-
-                                this.canvas = c;
-                                this.context = c.getContext('2d');
-
-                            }
-
-                        }
-                        height="300"
-                        width="400">
-                </canvas>
+                <canvas ref={ (c) => this.canvas = c } height="300" width="400"></canvas>
 
             </div>
 

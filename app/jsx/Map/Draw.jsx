@@ -4,10 +4,10 @@ import Tile from './Tile.jsx';
 
 class Draw {
 
-    constructor(canvas, context, map) {
+    constructor(canvas, map) {
 
         this.canvas = canvas;
-        this.context = context;
+        this.context = this.canvas.getContext('2d');
         this.mapObj = map;
         this.tileObj = new Tile();
 

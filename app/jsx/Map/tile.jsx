@@ -51,6 +51,9 @@ class Tile {
                 '15': {x: 96, y: 256}
             }
         };
+        this.set = {
+            'full': ['ground', 'rock', 'grass']
+        };
 
     }
 
