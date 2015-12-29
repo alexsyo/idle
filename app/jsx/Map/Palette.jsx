@@ -1,7 +1,9 @@
 'use strict';
 
 import React from 'react';
-import Tile from './Tile.jsx';
+import Locate from '../Actions/Locate.jsx';
+import Draw from '../Actions/Draw.jsx';
+import Tile from '../Elements/Tile.jsx';
 
 class Palette extends React.Component {
 
@@ -14,38 +16,21 @@ class Palette extends React.Component {
 
     componentDidMount() {
 
-        this.context = this.canvas.getContext('2d');
+        this.locate = new Locate(this.canvas);
+        this.draw = new Draw(this.canvas);
 
-
-        this.tileObj.img.onload = () => {
-
-            for(let i = 0; i < this.tileObj.set.full.length; i++) {
-
-                this.context.drawImage(
-                    this.tileObj.img,                                   // img instance
-                    this.tileObj.type[this.tileObj.set.full[i]][0].x,
-                    this.tileObj.type[this.tileObj.set.full[i]][0].y,   // src position
-                    this.tileObj.size, this.tileObj.size,               // src size
-                    i * this.tileObj.size, 0,                           // dst position
-                    this.tileObj.size, this.tileObj.size                // dst size
-                );
-
-            }
-
-        };
 
         this.clickHandler = () => {
 
-            window.event.preventDefault();
+            let tile = this.locate.tile();
+            let type = this.tileObj.set.full[tile.x];
 
-            let touch = window.event.changedTouches[0];
-            let rect = this.canvas.getBoundingClientRect();
-            let x = Math.floor((touch.clientX - rect.left) / this.tileObj.size);
-
-            this.props.setTileTypeHandler(this.tileObj.set.full[x]);
+            this.props.setTileTypeHandler(type);
 
         };
 
+
+        this.draw.palette(this.tileObj.set.full);
 
         this.canvas.addEventListener('touchstart', this.clickHandler, false);
 
@@ -58,7 +43,10 @@ class Palette extends React.Component {
 
             <div>
 
-                <canvas ref={(c) => this.canvas = c } height="32" width="96"></canvas>
+                <canvas ref={(c) => this.canvas = c } 
+                        width={this.tileObj.set.full.length * this.tileObj.size}
+                        height="32">
+                </canvas>
 
             </div>
 

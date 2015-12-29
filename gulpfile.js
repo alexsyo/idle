@@ -38,7 +38,8 @@ gulp.task('jsx', () => {
 
 gulp.task('img', () => {
     gulp.src('./img/tileSheet.png')
-        .pipe(gulp.dest('./dist/www/img/'));
+        .pipe(gulp.dest('./dist/www/img/'))
+        .pipe(connect.reload());
 });
 
 gulp.task('config', () => {

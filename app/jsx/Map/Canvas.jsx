@@ -1,14 +1,15 @@
 'use strict';
 
 import React from 'react';
-import Draw from './Draw.jsx';
-import Map from './Map.jsx';
+import Locate from '../Actions/Locate.jsx';
+import Draw from '../Actions/Draw.jsx';
+import Map from '../Elements/Map.jsx';
 
 class Canvas extends React.Component {
 
     constructor(props) {
 
-        super(props);
+        super(props)
         this.map = new Map();
         this.mouseActive = false;
 
@@ -16,19 +17,28 @@ class Canvas extends React.Component {
 
     componentDidMount() {
 
+        this.locate = new Locate(this.canvas, this.map.start);
         this.draw = new Draw(this.canvas, this.map.start);
 
 
         this.drawTileStartHandler = () => {
 
+            let tile = this.locate.tile();
+
+            this.draw.spreadTile(tile, this.props.tileType);
             this.mouseActive = true;
-            this.draw.tile(this.props.tileType, this.mouseActive);
 
         };
 
         this.drawTileMoveHandler = () => {
 
-            this.draw.tile(this.props.tileType, this.mouseActive);
+            if(this.mouseActive) {
+
+                let tile = this.locate.tile();
+
+                this.draw.spreadTile(tile, this.props.tileType);
+
+            }
 
         };
 
@@ -46,6 +56,7 @@ class Canvas extends React.Component {
         this.canvas.addEventListener('touchend', this.drawTileEndHandler, false);
 
     }
+
 
     render() {
 

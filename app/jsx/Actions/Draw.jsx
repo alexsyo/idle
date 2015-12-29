@@ -1,6 +1,8 @@
 'use strict';
 
-import Tile from './Tile.jsx';
+import Check from './Check.jsx';
+import Locate from './Locate.jsx';
+import Tile from '../Elements/Tile.jsx';
 
 class Draw {
 
@@ -9,6 +11,8 @@ class Draw {
         this.canvas = canvas;
         this.context = this.canvas.getContext('2d');
         this.mapObj = map;
+        this.check = new Check(map);
+        this.locate = new Locate(canvas, map);
         this.tileObj = new Tile();
 
     }
@@ -38,29 +42,39 @@ class Draw {
 
     }
 
-    tile(type, isActive) {
+    palette(tileSet) {
 
-        if(isActive) {
+        this.tileObj.img.onload = () => {
 
-            window.event.preventDefault();
+            for(let i = 0; i < tileSet.length; i++) {
 
-            let touch = window.event.changedTouches[0];
-            let rect = this.canvas.getBoundingClientRect();
-            let x = Math.floor((touch.clientX - rect.left) / this.tileObj.size);
-            let y = Math.floor((touch.clientY - rect.top) / this.tileObj.size);
-            let adjacents = this._findAdjacents(x, y);
+                let tile = {
+                    x: i,
+                    y: 0,
+                    type: tileSet[i],
+                    shape: 0
+                };
 
-            let tile = {
-                x,
-                y,
-                type,
-                shape: this._setShape(adjacents, type)
-            };
+                this._drawImage(tile);
 
+            }
+
+        };
+
+    }
+
+    spreadTile(tile, type) {
+
+        let adjacents = this.locate.adjacents(tile);
+
+        if(this.check.tile(tile, 'ground') && this.check.adjacents(adjacents, ['ground', type])) {
+
+            tile.type = type;
+            tile.shape = this._setShape(adjacents, type);
             this._drawImage(tile);
             this._updateMap(tile);
             this._drawAdjacents(adjacents, type);
-            
+
         }
 
     }
@@ -84,9 +98,9 @@ class Draw {
 
             if(adjacents.hasOwnProperty(i) && adjacents[i]) {
 
-                if(this._checkTile(adjacents[i], type)) {
+                if(this.check.tile(adjacents[i], type)) {
 
-                    let adjacentOfAdjacent = this._findAdjacents(adjacents[i].x, adjacents[i].y);
+                    let adjacentOfAdjacent = this.locate.adjacents(adjacents[i]);
 
                     adjacents[i].type = type;
                     adjacents[i].shape = this._setShape(adjacentOfAdjacent, type);
@@ -102,31 +116,12 @@ class Draw {
 
     }
 
-    _findAdjacents(x, y) {
-
-        let up = (this._isDefined(x, y - 1)) ? {x, y: y - 1} : false;
-        let right = (this._isDefined(x + 1, y)) ? {x: x + 1, y} : false;
-        let down = (this._isDefined(x, y + 1)) ? {x, y: y + 1} : false;
-        let left = (this._isDefined(x - 1, y)) ? {x: x - 1, y} : false;
-
-        return {up, right, down, left};
-
-    }
-
-    _isDefined(x, y) {
-
-        let isDefined = y >= 0 && y < this.mapObj.length && x >= 0 && x < this.mapObj[0].length;
-
-        return isDefined;
-
-    }
-
     _setShape(adjacent, type) {
 
-        let up = (adjacent.up) ? this._checkTile(adjacent.up, type) : true;
-        let right = (adjacent.right) ? this._checkTile(adjacent.right, type) : true;
-        let down = (adjacent.down) ? this._checkTile(adjacent.down, type) : true;
-        let left = (adjacent.left) ? this._checkTile(adjacent.left, type) : true;
+        let up = (adjacent.up) ? this.check.tile(adjacent.up, type) : true;
+        let right = (adjacent.right) ? this.check.tile(adjacent.right, type) : true;
+        let down = (adjacent.down) ? this.check.tile(adjacent.down, type) : true;
+        let left = (adjacent.left) ? this.check.tile(adjacent.left, type) : true;
 
         let shape;
 
@@ -148,14 +143,6 @@ class Draw {
         if( up && !right && !down &&  left) shape = 15;
 
         return shape;
-
-    }
-
-    _checkTile(tile, type) {
-
-        let isFull = this.mapObj[tile.y][tile.x][0] === type;
-
-        return isFull;
 
     }
 
