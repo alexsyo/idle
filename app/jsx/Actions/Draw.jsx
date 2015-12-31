@@ -63,19 +63,45 @@ class Draw {
 
     }
 
-    spreadTile(tile, type) {
+    brush(tile, type) {
+
+        this.singleTile(tile, type);
+
+        let adjacents = this.locate.adjacents(tile);
+        let adjacentsOfAdjacents = this.locate.adjacentsOfAdjacents(adjacents);
+
+        for(let i in adjacents) {
+
+            if(adjacents.hasOwnProperty(i) && adjacents[i]) {
+
+                if(!this.check.tile(adjacents[i], [type, 'ground'])) {
+
+                    adjacents[i].type = 'ground';
+                    adjacents[i].shape = 0;
+    
+                    this._drawImage(adjacents[i]);
+                    this._updateMap(adjacents[i]);
+                    
+                }
+
+            }
+
+        }
+
+        this._drawAdjacents(adjacentsOfAdjacents);
+
+    }
+
+    singleTile(tile, type) {
 
         let adjacents = this.locate.adjacents(tile);
 
-        if(this.check.tile(tile, 'ground') && this.check.adjacents(adjacents, ['ground', type])) {
-
-            tile.type = type;
-            tile.shape = this._setShape(adjacents, type);
-            this._drawImage(tile);
-            this._updateMap(tile);
-            this._drawAdjacents(adjacents, type);
-
-        }
+        tile.type = type;
+        tile.shape = this._setShape(tile, type);
+        
+        this._drawImage(tile);
+        this._updateMap(tile);
+        this._drawAdjacents(adjacents, type);
 
     }
 
@@ -92,23 +118,17 @@ class Draw {
 
     }
 
-    _drawAdjacents(adjacents, type) {
+    _drawAdjacents(adjacents) {
 
         for(let i in adjacents) {
 
             if(adjacents.hasOwnProperty(i) && adjacents[i]) {
 
-                if(this.check.tile(adjacents[i], type)) {
+                adjacents[i].type = this.mapObj[adjacents[i].y][adjacents[i].x][0];
+                adjacents[i].shape = this._setShape(adjacents[i], adjacents[i].type);
 
-                    let adjacentOfAdjacent = this.locate.adjacents(adjacents[i]);
-
-                    adjacents[i].type = type;
-                    adjacents[i].shape = this._setShape(adjacentOfAdjacent, type);
-
-                    this._drawImage(adjacents[i]);
-                    this._updateMap(adjacents[i]);
-                    
-                }
+                this._drawImage(adjacents[i]);
+                this._updateMap(adjacents[i]);
 
             }
 
@@ -116,12 +136,14 @@ class Draw {
 
     }
 
-    _setShape(adjacent, type) {
+    _setShape(tile, type) {
 
-        let up = (adjacent.up) ? this.check.tile(adjacent.up, type) : true;
-        let right = (adjacent.right) ? this.check.tile(adjacent.right, type) : true;
-        let down = (adjacent.down) ? this.check.tile(adjacent.down, type) : true;
-        let left = (adjacent.left) ? this.check.tile(adjacent.left, type) : true;
+        let adjacents = this.locate.adjacents(tile);
+
+        let up = (adjacents.up) ? this.check.tile(adjacents.up, type) : true;
+        let right = (adjacents.right) ? this.check.tile(adjacents.right, type) : true;
+        let down = (adjacents.down) ? this.check.tile(adjacents.down, type) : true;
+        let left = (adjacents.left) ? this.check.tile(adjacents.left, type) : true;
 
         let shape;
 

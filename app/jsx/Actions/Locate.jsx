@@ -27,17 +27,44 @@ class Locate {
 
     adjacents(tile) {
 
-        let up =    { x: tile.x,     y: tile.y - 1 };
-        let right = { x: tile.x + 1, y: tile.y     };
-        let down =  { x: tile.x,     y: tile.y + 1 };
-        let left =  { x: tile.x - 1, y: tile.y     };
-
-        up =    (this._isDefined(up))    ? up : false;
-        right = (this._isDefined(right)) ? right : false;
-        down =  (this._isDefined(down))  ? down : false;
-        left =  (this._isDefined(left))  ? left : false;
+        let up =    this._adjacent(tile, 'up');
+        let right = this._adjacent(tile, 'right');
+        let down =  this._adjacent(tile, 'down');
+        let left =  this._adjacent(tile, 'left');
 
         return {up, right, down, left};
+
+    }
+
+    adjacentsOfAdjacents(adjacents) {
+
+        let upUp       = this._adjacent(adjacents.up,    'up');
+        let upRight    = this._adjacent(adjacents.up,    'right');
+        let rightRight = this._adjacent(adjacents.right, 'right');
+        let rightDown  = this._adjacent(adjacents.right, 'down');
+        let downDown   = this._adjacent(adjacents.down,  'down');
+        let downLeft   = this._adjacent(adjacents.down,  'left');
+        let LeftLeft   = this._adjacent(adjacents.left,  'left');
+        let LeftUp     = this._adjacent(adjacents.left,  'up');
+
+        return {upUp, upRight, rightRight, rightDown, downDown, downLeft, LeftLeft, LeftUp};
+
+    }
+
+    _adjacent(tile, direction) {
+
+        let adjacent;
+
+        switch(direction) {
+
+            case 'up':    adjacent = { x: tile.x,     y: tile.y - 1 }; break;
+            case 'right': adjacent = { x: tile.x + 1, y: tile.y     }; break;
+            case 'down':  adjacent = { x: tile.x,     y: tile.y + 1 }; break;
+            case 'left':  adjacent = { x: tile.x - 1, y: tile.y     }; break;
+
+        }
+
+        return (this._isDefined(adjacent)) ? adjacent : false;
 
     }
 

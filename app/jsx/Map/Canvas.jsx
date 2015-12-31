@@ -3,13 +3,15 @@
 import React from 'react';
 import Locate from '../Actions/Locate.jsx';
 import Draw from '../Actions/Draw.jsx';
+import Tile from '../Elements/Tile.jsx';
 import Map from '../Elements/Map.jsx';
 
 class Canvas extends React.Component {
 
     constructor(props) {
 
-        super(props)
+        super(props);
+        this.tileObj = new Tile();
         this.map = new Map();
         this.mouseActive = false;
 
@@ -25,7 +27,7 @@ class Canvas extends React.Component {
 
             let tile = this.locate.tile();
 
-            this.draw.spreadTile(tile, this.props.tileType);
+            this.draw.brush(tile, this.props.tileType);
             this.mouseActive = true;
 
         };
@@ -36,7 +38,7 @@ class Canvas extends React.Component {
 
                 let tile = this.locate.tile();
 
-                this.draw.spreadTile(tile, this.props.tileType);
+                this.draw.brush(tile, this.props.tileType);
 
             }
 
@@ -64,7 +66,10 @@ class Canvas extends React.Component {
 
             <div>
 
-                <canvas ref={ (c) => this.canvas = c } height="300" width="400"></canvas>
+                <canvas ref={ (c) => this.canvas = c }
+                        width={this.map.start[0].length * this.tileObj.size}
+                        height={this.map.start.length * this.tileObj.size}>
+                </canvas>
 
             </div>
 
