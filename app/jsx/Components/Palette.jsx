@@ -25,7 +25,7 @@ class Palette extends React.Component {
             let tile = this.locate.tile();
             let type = this.tileObj.set.full[tile.x];
 
-            this.props.setTileTypeHandler(type);
+            this.props.setTileType(type);
 
         };
 

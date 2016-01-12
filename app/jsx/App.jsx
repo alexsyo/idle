@@ -1,21 +1,22 @@
 'use strict';
 
 import React from 'react';
-import Canvas from './Map/Canvas.jsx';
-import Palette from './Map/Palette.jsx';
+import Home from './Views/Home/Home.jsx';
+import Editor from './Views/Editor/Editor.jsx';
 
-class App extends React.Component{
+class App extends React.Component {
 
     constructor(props) {
 
         super(props);
         this.state = {
-            tileType: null
+            view: 'Home',
         };
 
-        this.setTileTypeHandler = (tileType) => {
 
-            this.setState({tileType});
+        this.setView = (view) => {
+
+            this.setState({view});
 
         };
 
@@ -24,13 +25,21 @@ class App extends React.Component{
 
     render() {
 
+        let view;
+
+        switch(this.state.view) {
+            case 'Home': 
+                view = <Home setView={this.setView} />;
+                break;
+            case 'Editor': 
+                view = <Editor />;
+                break;
+        }
+
         return(
 
             <div>
-
-                <Canvas tileType={this.state.tileType} />
-                <Palette setTileTypeHandler={this.setTileTypeHandler} />
-
+                {view}
             </div>
 
         );
