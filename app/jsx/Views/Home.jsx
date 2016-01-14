@@ -15,7 +15,7 @@ class Home extends React.Component {
 
         return(
 
-            <div onClick={this.props.setView.bind(null, 'Editor')}>Editor</div>
+            <div onClick={this.props.setView.bind(null, 'Settings')}>Editor</div>
 
         );
 

@@ -1,8 +1,9 @@
 'use strict';
 
 import React from 'react';
-import Home from './Views/Home/Home.jsx';
-import Editor from './Views/Editor/Editor.jsx';
+import Home from './Views/Home.jsx';
+import Settings from './Views/Settings/Settings.jsx';
+import Board from './Views/Board/Board.jsx';
 
 class App extends React.Component {
 
@@ -11,6 +12,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             view: 'Home',
+            boardParams: {}
         };
 
 
@@ -20,26 +22,28 @@ class App extends React.Component {
 
         };
 
+        this.setBoardParams = (boardParams) => {
+
+            this.setState({boardParams});
+
+        };
+
     }
 
 
     render() {
+        
+        this.view = {
+            Home:     <Home     setView={this.setView} />,
+            Settings: <Settings setView={this.setView} options={['newMap']} setBoardParams={this.setBoardParams} />,
+            Board:    <Board    setView={this.setView} boardParams={this.state.boardParams} />
+        };
 
-        let view;
-
-        switch(this.state.view) {
-            case 'Home': 
-                view = <Home setView={this.setView} />;
-                break;
-            case 'Editor': 
-                view = <Editor />;
-                break;
-        }
 
         return(
 
             <div>
-                {view}
+                {this.view[this.state.view]}
             </div>
 
         );

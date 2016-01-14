@@ -1,9 +1,9 @@
 'use strict';
 
 import React from 'react';
-import Locate from '../Actions/Locate.jsx';
-import Draw from '../Actions/Draw.jsx';
-import Tile from '../Elements/Tile.jsx';
+import Locate from '../../../Actions/Locate.jsx';
+import Draw from '../../../Actions/Draw.jsx';
+import Tile from '../../../Elements/Tile.jsx';
 
 class Palette extends React.Component {
 
@@ -20,7 +20,7 @@ class Palette extends React.Component {
         this.draw = new Draw(this.canvas);
 
 
-        this.clickHandler = () => {
+        this.handleClick = () => {
 
             let tile = this.locate.tile();
             let type = this.tileObj.set.full[tile.x];
@@ -32,7 +32,7 @@ class Palette extends React.Component {
 
         this.draw.palette(this.tileObj.set.full);
 
-        this.canvas.addEventListener('touchstart', this.clickHandler, false);
+        this.canvas.addEventListener('touchstart', this.handleClick, false);
 
     }
 

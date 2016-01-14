@@ -1,10 +1,10 @@
 'use strict';
 
 import React from 'react';
-import Canvas from '../../Components/Canvas.jsx';
-import Palette from '../../Components/Palette.jsx';
+import Canvas from './Components/Canvas.jsx';
+import Palette from './Components/Palette.jsx';
 
-class Editor extends React.Component {
+class Board extends React.Component {
 
     constructor(props) {
 
@@ -29,8 +29,9 @@ class Editor extends React.Component {
 
             <div>
 
-                <Canvas tileType={this.state.tileType} />
+                <Canvas tileType={this.state.tileType} boardParams={this.props.boardParams} />
                 <Palette setTileType={this.setTileType} />
+                <button onClick={this.props.setView.bind(null, 'Home')}>Back</button>
 
             </div>
 
@@ -40,4 +41,4 @@ class Editor extends React.Component {
 
 }
 
-export default Editor;
+export default Board;

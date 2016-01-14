@@ -1,10 +1,9 @@
 'use strict';
 
 import React from 'react';
-import Locate from '../Actions/Locate.jsx';
-import Draw from '../Actions/Draw.jsx';
-import Tile from '../Elements/Tile.jsx';
-import Map from '../Elements/Map.jsx';
+import Locate from '../../../Actions/Locate.jsx';
+import Draw from '../../../Actions/Draw.jsx';
+import Tile from '../../../Elements/Tile.jsx';
 
 class Canvas extends React.Component {
 
@@ -12,15 +11,14 @@ class Canvas extends React.Component {
 
         super(props);
         this.tileObj = new Tile();
-        this.map = new Map();
         this.mouseActive = false;
 
     }
 
     componentDidMount() {
 
-        this.locate = new Locate(this.canvas, this.map.start);
-        this.draw = new Draw(this.canvas, this.map.start);
+        this.locate = new Locate(this.canvas, this.props.boardParams.map);
+        this.draw = new Draw(this.canvas, this.props.boardParams.map);
 
 
         this.drawTileStartHandler = () => {
@@ -67,8 +65,8 @@ class Canvas extends React.Component {
             <div>
 
                 <canvas ref={ (c) => this.canvas = c }
-                        width={this.map.start[0].length * this.tileObj.size}
-                        height={this.map.start.length * this.tileObj.size}>
+                        width={this.props.boardParams.map[0].length * this.tileObj.size}
+                        height={this.props.boardParams.map.length * this.tileObj.size}>
                 </canvas>
 
             </div>
