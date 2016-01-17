@@ -148,21 +148,21 @@ class Draw {
         let shape;
 
         if(!up && !right && !down && !left) shape = 0;
-        if(!up &&  right && !down && !left) shape = 1;
-        if(!up &&  right && !down &&  left) shape = 2;
-        if(!up && !right && !down &&  left) shape = 3;
-        if(!up && !right &&  down && !left) shape = 4;
-        if(!up &&  right &&  down && !left) shape = 5;
-        if(!up &&  right &&  down &&  left) shape = 6;
-        if(!up && !right &&  down &&  left) shape = 7;
-        if( up && !right &&  down && !left) shape = 8;
-        if( up &&  right &&  down && !left) shape = 9;
-        if( up &&  right &&  down &&  left) shape = 10;
-        if( up && !right &&  down &&  left) shape = 11;
-        if( up && !right && !down && !left) shape = 12;
-        if( up &&  right && !down && !left) shape = 13;
-        if( up &&  right && !down &&  left) shape = 14;
-        if( up && !right && !down &&  left) shape = 15;
+        else if(!up &&  right && !down && !left) shape = 1;
+        else if(!up &&  right && !down &&  left) shape = 2;
+        else if(!up && !right && !down &&  left) shape = 3;
+        else if(!up && !right &&  down && !left) shape = 4;
+        else if(!up &&  right &&  down && !left) shape = 5;
+        else if(!up &&  right &&  down &&  left) shape = 6;
+        else if(!up && !right &&  down &&  left) shape = 7;
+        else if( up && !right &&  down && !left) shape = 8;
+        else if( up &&  right &&  down && !left) shape = 9;
+        else if( up &&  right &&  down &&  left) shape = 10;
+        else if( up && !right &&  down &&  left) shape = 11;
+        else if( up && !right && !down && !left) shape = 12;
+        else if( up &&  right && !down && !left) shape = 13;
+        else if( up &&  right && !down &&  left) shape = 14;
+        else if( up && !right && !down &&  left) shape = 15;
 
         return shape;
 
